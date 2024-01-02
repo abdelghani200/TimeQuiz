@@ -1,0 +1,79 @@
+<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+    <button class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg m-4" (click)="showAddForm = true">Ajouter
+        un nouveau</button>
+
+
+    <div [class.hidden]="!showAddForm" class="popup-form p-4">
+        <h2 class="text-lg font-semibold">{{ operation === 'add' ? 'Ajouter' : 'Modifier' }} un niveau</h2>
+        <form [formGroup]="levelForm" (ngSubmit)="operation === 'add' ? addLevel() : updateLevel()" class="py-6 px-9">
+
+            <app-form-commun *ngFor="let field of formFields" [formGroup]="levelForm" [label]="field.label"
+                [inputType]="field.inputType" [inputName]="field.inputName" [inputId]="field.inputId"
+                [formControlName]="field.formControlName" [placeholder]="field.placeholder"
+                [isRequired]="field.isRequired">
+            </app-form-commun>
+
+
+
+            <div class="mb-5 flex space-x-8">
+                <button type="submit"
+                    class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                    {{ operation === 'add' ? 'Ajouter' : 'Modifier' }}
+                </button>
+                <button type="button" (click)="cancelAddOrEdit()"
+                    class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                    Annuler
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <div *ngIf="levels$ | async as levels;">
+        <div *ngIf="levels.length > 0">
+
+            <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900 " [ngStyle]="{color:'red'}">ID</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Description</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">minPoints</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">maxPoints</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900" style="text-align: center;">Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                    <tr class="hover:bg-gray-50" *ngFor="let level of currentLevels | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: levels.length }">
+                        <td class="px-6 py-4">{{ level.id }}</td>
+                        <td class="px-6 py-4">{{ level.description }}</td>
+                        <td class="px-6 py-4">{{ level.minPoints }}</td>
+                        <td class="px-6 py-4">{{ level.maxPoints }}</td>
+                        <td class="px-6 py-4">
+
+                            <div class="flex justify-center gap-4">
+                                <a x-data="{ tooltip: 'Delete' }" (click)="deleteLevel(level.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-6 w-6" x-tooltip="tooltip">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </a>
+                                <a x-data="{ tooltip: 'Edite' }" (click)="editLevel(level)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-6 w-6" x-tooltip="tooltip">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <app-pagination [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="levels.length"
+            (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+</div>

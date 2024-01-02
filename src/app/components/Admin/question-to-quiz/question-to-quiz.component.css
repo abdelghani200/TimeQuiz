@@ -1,0 +1,47 @@
+/* validation-modal.component.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 800px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Add any additional styling as needed */
+
+/* validation-modal.component.css */
+.question-list {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.question-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+.question-item:hover {
+    background-color: #f0f0f0;
+}
+
+.question-icon {
+    margin-left: auto;
+    font-size: 12px;
+}

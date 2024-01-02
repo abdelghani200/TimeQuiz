@@ -1,0 +1,39 @@
+<div class="modal-overlay">
+    <div class="modal">
+        <h2 class="text-lg font-semibold mb-4">{{ 'Ajouter une validation' }}</h2>
+        <form [formGroup]="validationForm" (ngSubmit)="operation === 'add' ? addValidation() : null" class="py-6 px-9">
+
+            <div class="mb-5">
+                <label for="question_id">Question ID</label>
+                <input type="text" id="question_id" [value]="displayedQuestion"
+                    readonly
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+            </div>
+
+            <div class="mb-5">
+                <label for="response_id">Answer</label>
+                <select formControlName="response_id" id="response_id" required
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                    <option value="" disabled selected>Sélectionner une reponse</option>
+                    <option *ngFor="let answer of answers$ | async" [value]="answer.id">{{ answer.answerText }}</option>
+                </select>
+            </div>
+            <div class="mb-5">
+                <label for="points">Points</label>
+                <input type="number" id="points" formControlName="points" placeholder="points" max="4" min="2"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+            </div>
+
+            <div class="mb-5 flex space-x-8">
+                <button type="submit"
+                    class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                    Ajouter
+                </button>
+                <button type="button"
+                    class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                    Annuler
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+
+    <div class="flex">
+        <button class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg m-4">Ajouter un nouveau</button>
+        <app-list-validations></app-list-validations>
+
+    </div>
+
+
+    <app-valid-question *ngIf="isValidationModalOpen" [selectedQuestion]="selectedQuestion"></app-valid-question>
+
+    <div *ngIf="questions$ | async as questions;">
+        <div *ngIf="questions.length > 0">
+            <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">ID</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Answer Number</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Answer Correct Number</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Type Question</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Score Points</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Level</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Subject</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900" style="text-align: center;">Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                    <tr class="hover:bg-gray-50" *ngFor="let question of questions | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: questions.length };">
+                        <td class="px-6 py-4">{{ question.id }}</td>
+                        <td class="px-6 py-4">{{ question.text }}</td>
+                        <td class="px-6 py-4">{{ question.answerNumber }}</td>
+                        <td class="px-6 py-4">{{ question.answerCorrectNumber }}</td>
+                        <td class="px-6 py-4">{{ question.type }}</td>
+                        <td class="px-6 py-4">{{ question.scorePoints }}</td>
+                        <td class="px-6 py-4">{{ question.level.description }}</td>
+                        <td class="px-6 py-4">{{ question.subject.title }}</td>
+
+                        <td class="px-6 py-4">
+
+                            <div class="flex justify-center gap-4">
+                                <a x-data="{ tooltip: 'Delete' }" class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-6 w-6" x-tooltip="tooltip">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </a>
+                                <a x-data="{ tooltip: 'Edite' }" class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-6 w-6" x-tooltip="tooltip">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                    </svg>
+                                </a>
+                                <a (click)="openValidationModal(question)" class="cursor-pointer">
+                                    <svg fill="#8b8484" height="64px" width="64px" version="1.1" class="h-6 w-6"
+                                        id="XMLID_215_" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"
+                                        xml:space="preserve" stroke="#8b8484">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <g id="validation">
+                                                <g>
+                                                    <path
+                                                        d="M12,24c-1.2,0-2.1-1-2.8-1.8c-0.4-0.4-0.8-0.9-1-1c-0.3-0.1-1-0.1-1.5-0.1c-1.1,0.1-2.3,0.1-3.1-0.7s-0.8-2.1-0.7-3.1 c0-0.6,0.1-1.2-0.1-1.5c-0.1-0.3-0.6-0.7-1-1C1,14.1,0,13.2,0,12s1-2.1,1.8-2.8c0.4-0.4,0.9-0.8,1-1c0.1-0.3,0.1-1,0.1-1.5 C2.8,5.6,2.8,4.4,3.6,3.6c0.8-0.8,2.1-0.8,3.1-0.7c0.6,0,1.2,0.1,1.5-0.1c0.3-0.1,0.7-0.6,1-1C9.9,1,10.8,0,12,0s2.1,1,2.8,1.8 c0.4,0.4,0.8,0.9,1,1c0.3,0.1,1,0.1,1.5,0.1c1.1-0.1,2.3-0.1,3.1,0.7c0.8,0.8,0.8,2.1,0.7,3.1c0,0.6-0.1,1.2,0.1,1.5 c0.1,0.3,0.6,0.7,1,1C23,9.9,24,10.8,24,12s-1,2.1-1.8,2.8c-0.4,0.4-0.9,0.8-1,1c-0.1,0.3-0.1,1-0.1,1.5c0.1,1.1,0.1,2.3-0.7,3.1 c-0.8,0.8-2.1,0.8-3.1,0.7c-0.6,0-1.2-0.1-1.5,0.1c-0.3,0.1-0.7,0.6-1,1C14.1,23,13.2,24,12,24z M7.5,19.1c0.5,0,1,0.1,1.5,0.2 c0.7,0.3,1.3,0.9,1.8,1.5c0.4,0.5,1,1.1,1.3,1.1s0.9-0.6,1.3-1.1c0.5-0.6,1.1-1.2,1.8-1.5c0.7-0.3,1.6-0.3,2.4-0.2 c0.6,0,1.4,0.1,1.6-0.1s0.1-1,0.1-1.6c-0.1-0.8-0.1-1.7,0.2-2.4c0.3-0.7,0.9-1.3,1.5-1.8c0.4-0.3,1-0.9,1-1.2s-0.6-0.9-1.1-1.3 c-0.6-0.5-1.2-1.1-1.5-1.8c-0.3-0.7-0.3-1.6-0.2-2.4c0-0.6,0.1-1.4-0.1-1.6c-0.2-0.2-1-0.1-1.6-0.1c-0.8,0.1-1.7,0.1-2.4-0.2 c-0.7-0.3-1.3-0.9-1.8-1.5C12.9,2.6,12.3,2,12,2s-0.9,0.6-1.3,1.1c-0.5,0.6-1.1,1.2-1.8,1.5S7.3,4.9,6.5,4.8 c-0.6,0-1.4-0.1-1.6,0.1c-0.2,0.2-0.1,1-0.1,1.6c0.1,0.8,0.1,1.7-0.2,2.4c-0.3,0.7-0.9,1.3-1.5,1.8C2.6,11.1,2,11.7,2,12 s0.6,0.9,1.1,1.3c0.6,0.5,1.2,1.1,1.5,1.8s0.3,1.6,0.2,2.4c0,0.6-0.1,1.4,0.1,1.6c0.2,0.2,1,0.1,1.6,0.1 C6.8,19.2,7.1,19.1,7.5,19.1z M11,16.4l-3.7-3.7l1.4-1.4l2.3,2.3l5.3-5.3l1.4,1.4L11,16.4z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <app-pagination [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="questions.length"
+            (pageChange)="onPageChange($event)"></app-pagination>
+
+</div>

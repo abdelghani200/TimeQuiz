@@ -1,0 +1,80 @@
+<div class="container mx-auto">
+    <div class="bd-example relative">
+        <div id="carouselQuestion" class="carousel slide carousel-fade" style="height: 550px;" data-ride="carousel"
+            data-interval="false" data-wrap="false">
+            <ol class="carousel-indicators fixed bottom-0 m-0 bg-dark" id="question-indicator">
+                <li *ngFor="let question of questionsAndQuiz$ | async; let i = index"
+                    [class.active]="i === currentQuestionIndex" [attr.data-slide-to]="i"></li>
+            </ol>
+            <div class="carousel-inner" id="question-list">
+                <div class="carousel-item relative" *ngFor="let question of questionsAndQuiz$ | async; let i = index"
+                    [class.active]="i === currentQuestionIndex">
+                    <div *ngIf="i === currentQuestionIndex">
+                        <div class="row m-0 mt-5 pt-5 font-bold" id="question-counter">{{ currentQuestionIndex + 1 }} of
+                            {{ (questionsAndQuiz$ | async)?.length }}</div>
+                        <div class="row justify-center">
+                            <div class="text-gray-600 text-center mb-4">{{ question?.question?.text }}</div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="w-1/2">
+                                <div *ngFor="let answer of currentQuestionAnswers.slice(0, 2)" class="p-2">
+                                    <button type="button"
+                                            [ngClass]="getAnswerStyleClass(answer)"
+                                            class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
+                                            (click)="selectAnswer(answer)">
+                                        <div class="text-2xl font-bold">{{ answer.answer.answerText || 'N/A' }}</div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="w-1/2">
+                                <div *ngFor="let answer of currentQuestionAnswers.slice(2)" class="p-2">
+                                    <button type="button" [ngClass]="getAnswerStyleClass(answer)"
+                                        class="text-white w-full h-20 flex items-center justify-center"
+                                        (click)="selectAnswer(answer)">
+                                        <div class="text-2xl font-bold">{{ answer.answer.answerText || 'N/A' }}</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute right-3 top-0 mt-5">
+                            <a class="carousel-control-next flex items-start" role="button" data-slide="next"
+                                (click)="nextQuestion()">
+                                <button type="button"
+                                    class="bg-blue-700 text-white py-3 px-4 rounded-lg hover:bg-blue-800">Next</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative py-16" *ngIf="showLeaderboardPopup" class="leaderboard-popup">
+        <div class="container">
+            <div class="">
+                <div
+                    class="group space-y-6 border border-gray-100 dark:border-gray-700 rounded-3xl bg-white dark:bg-gray-800 px-8 py-12 text-center shadow-2xl shadow-gray-600/10 dark:shadow-none">
+                    <p>
+                        Welcome to podium
+                    </p>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white" [ngStyle]="{'color': 'red'}">Your
+                        Score:</h3>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">{{ finalScore }}</h3>
+                    <div class="flex">
+                        <a title="Show result"
+                            class="relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 dark:before:border-gray-600 before:transition before:duration-300 group-hover:before:scale-125">
+                            <span class="text-primary">&rightarrow;</span>
+                        </a>
+                        <a (click)="navigateToListQuiz()" title="Close"
+                            class="relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 dark:before:border-gray-600 before:transition before:duration-300 group-hover:before:scale-125">
+                            <span class="text-primary">&rightarrow;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

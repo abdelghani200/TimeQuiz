@@ -1,0 +1,68 @@
+<header
+    class="fixed z-20 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur navbar shadow-md shadow-gray-600/5 md:bg-transparent dark:shadow-none">
+    <input type="checkbox" name="hbr" id="hbr" class="hbr peer" hidden aria-hidden="true">
+    <nav
+        class="fixed z-20 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur navbar shadow-md shadow-gray-600/5 peer-checked:navbar-active md:relative md:bg-transparent dark:shadow-none">
+        <div class="xl:container m-auto px-6 md:px-12">
+            <div class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 shadow-md z-20">
+                <div class=" flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
+                    <div class="w-full flex justify-between lg:w-auto">
+                        <a href="#" aria-label="logo" class="flex space-x-2 items-center">
+                            <img src="/assets/img/quiz-time-banner.webp" alt="image_quiz" class="w-12 h-12">
+                            <span class="text-base font-bold text-gray-600 dark:text-white">YouQuiz</span>
+                        </a>
+                        <label for="hbr"
+                            class="peer-checked:hamburger block relative z-20 p-6 -mr-6 cursor-pointer lg:hidden">
+                            <div aria-hidden="true"
+                                class="m-auto h-0.5 w-6 rounded bg-gray-900 dark:bg-gray-300 transition duration-300">
+                            </div>
+                            <div aria-hidden="true"
+                                class="m-auto mt-2 h-0.5 w-6 rounded bg-gray-900 dark:bg-gray-300 transition duration-300">
+                            </div>
+                        </label>
+                    </div>
+                    <div
+                        class="navmenu hidden w-full flex-wrap justify-end items-center mb-16 space-y-8 p-6 border border-gray-100 rounded-3xl shadow-2xl shadow-gray-300/20 bg-white dark:bg-gray-800 lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-7/12 lg:shadow-none dark:shadow-none dark:border-gray-700 lg:border-0">
+                        <div class="text-gray-600 dark:text-gray-300 lg:pr-4">
+                            <ul class="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0">
+                                <li>
+                                    <a [routerLink]="['/contenu']"
+                                        class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/quizList']"
+                                        class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
+                                        <span>Quizzs</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
+                                        <span>My Quiz</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div
+                            class="w-full space-y-2 border-primary/10 dark:border-gray-700 flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l">
+                            <a href="#"
+                                class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
+                                <span>Sign Up</span>
+                            </a>
+                            <a [routerLink]="['/login']"
+                                class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
+                                <span>Login</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="md:py-16">
+    <router-outlet></router-outlet>
+</div>
