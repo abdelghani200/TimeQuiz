@@ -1,8 +1,9 @@
+import { Assignment } from "./Assignment";
 import { Question } from "./Question";
 import { Quiz } from "./Quiz";
 
 export interface QuestionToQuiz{
     question: Question;
-    quiz: Quiz;
+    assignment: Assignment;
     time: number
 }
