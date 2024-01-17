@@ -12,7 +12,7 @@ import { levelReducer } from './store/reducers/level.reducer';
 import { SidebarComponent } from './components/Admin/sidebar/sidebar.component';
 import { StatisticsComponent } from './components/Admin/statistics/statistics.component';
 import { FormCommunComponent } from './shared/Form/form-commun/form-commun.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsComponent } from './components/Admin/subjects/subjects.component';
 import { subjectReducer } from './store/reducers/subject.reducer';
 import { SubjectEffects } from './store/effects/subjects.effects';
@@ -52,6 +52,10 @@ import { AssignmentEffects } from './store/effects/assignment.effects';
 import { MediasComponent } from './components/Admin/medias/medias.component';
 import { mediaReducer } from './store/reducers/media.reducer';
 import { MediaEffects } from './store/effects/media.effects';
+import { RoomsComponent } from './components/Admin/chat/rooms/rooms.component';
+import { responseReducer } from './store/reducers/reponse.reducer';
+import { ResponseEffects } from './store/effects/reponse.effects';
+import { FormQuestionComponent } from './shared/Form/form-question/form-question.component';
 
 
 
@@ -80,6 +84,9 @@ import { MediaEffects } from './store/effects/media.effects';
     TeachersComponent,
     AssignmentComponent,
     MediasComponent,
+    RoomsComponent,
+    FormQuestionComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -97,9 +104,11 @@ import { MediaEffects } from './store/effects/media.effects';
     StoreModule.forFeature('teachers', teacherReducer),
     StoreModule.forFeature('assignments', assignmentReducer),
     StoreModule.forFeature('medias', mediaReducer),
-    EffectsModule.forRoot([LevelEffects, SubjectEffects, QuestionEffects, QuizEffects, ValidationEffects, QuestionQuizEffects, AnswerEffects, ChatEffects, TeacherEffects, AssignmentEffects, MediaEffects]),
+    StoreModule.forFeature('responses', responseReducer),
+    EffectsModule.forRoot([LevelEffects, SubjectEffects, QuestionEffects, QuizEffects, ValidationEffects, QuestionQuizEffects, AnswerEffects, ChatEffects, TeacherEffects, AssignmentEffects, MediaEffects, ResponseEffects]),
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -65,7 +65,7 @@ export class LevelsComponent implements OnInit {
   addLevel() {
     const newLevel = this.levelForm.value as Level;
     this.store.dispatch(LevelActions.addLevel({ level: newLevel }));
-    this.resetForm()
+    this.resetForm();
   }
 
   cancelAddOrEdit() {

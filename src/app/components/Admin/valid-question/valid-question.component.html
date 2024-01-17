@@ -11,8 +11,8 @@
             </div>
 
             <div class="mb-5">
-                <label for="response_id">Answer</label>
-                <select formControlName="response_id" id="response_id" required
+                <label for="answer_id">Answer</label>
+                <select formControlName="answer_id" id="answer_id" required
                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                     <option value="" disabled selected>Sélectionner une reponse</option>
                     <option *ngFor="let answer of answers$ | async" [value]="answer.id">{{ answer.answerText }}</option>

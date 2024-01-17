@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Assignment } from 'src/app/models/Assignment';
@@ -16,7 +16,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./assignment.component.css']
 })
 export class AssignmentComponent {
-
 
   assignments$: Observable<Assignment[]>;
   currentAssignments: Assignment[] = []

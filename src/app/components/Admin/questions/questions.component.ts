@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as QuestionActions from '../../../store/actions/question.actions';
@@ -20,12 +20,13 @@ export class QuestionsComponent implements OnInit {
 
   questions$: Observable<Question[]>;
   currentQuestions!: Question[]
-
   questions: Question[] = [];
+  questionForm!: FormGroup;
+  showAddForm = false
 
   currentPage = 1;
   itemsPerPage = 6;
-
+  operation: String = 'add';
   selectedQuestion: any;
   isDropdownVisible: boolean = false;
   isValidationModalOpen = false;
@@ -33,6 +34,7 @@ export class QuestionsComponent implements OnInit {
 
   constructor(private store: Store<AppState>, private fb: FormBuilder, private formConfig: FormconfigService, private router: Router) {
     this.questions$ = this.store.pipe(select(selectQuestions))
+    this.createQuestionForm()
   }
 
   ngOnInit(): void {
@@ -42,6 +44,21 @@ export class QuestionsComponent implements OnInit {
       this.questions = questions;
       console.log('Questions:', this.currentQuestions)
     })
+  }
+
+  createQuestionForm() {
+    this.questionForm = this.fb.group(
+      {
+        text: ['', Validators.required],
+        answerNumber: ['', Validators.required],
+        type: ['', Validators.required],
+        level_id: ['', Validators.required],
+        subject_id: ['', Validators.required],
+        answerCorrectNumber: ['', Validators.required],
+        scorePoints: ['', [Validators.required, Validators.min(0)]],
+
+      }
+    )
   }
 
 
@@ -57,6 +74,20 @@ export class QuestionsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.currentPage = pageNumber;
+  }
+
+  addQuestion(){
+    const newQuestion = this.questionForm.value as Question;
+    this.store.dispatch(QuestionActions.addQuestion({ question: newQuestion }));
+    this.resetForm();
+  }
+
+  cancelAddOrEdit(){
+
+  }
+
+  resetForm(){
+
   }
 
 }

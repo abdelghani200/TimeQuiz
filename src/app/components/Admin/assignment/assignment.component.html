@@ -3,27 +3,60 @@
         un nouveau</button>
 
     <div [class.hidden]="!showAddForm" class="popup-form p-4">
-        <h2 class="text-lg font-semibold">{{ operation === 'add' ? 'Ajouter' : 'Modifier' }} un niveau</h2>
-        <form [formGroup]="assignmentForm" (ngSubmit)="addAssignment()" class="py-6 px-9">
+        <form [formGroup]="assignmentForm" class="py-6 px-9">
 
-            <app-form-commun *ngFor="let field of formFields" [formGroup]="assignmentForm" [label]="field.label"
-                [inputType]="field.inputType" [inputName]="field.inputName" [inputId]="field.inputId"
-                [formControlName]="field.formControlName" [placeholder]="field.placeholder"
-                [isRequired]="field.isRequired">
-            </app-form-commun>
 
+            <div class="flex flex-col">
+                <label for="date_debut">date_debut</label>
+                <input type="date" name="date_debut" id="date_debut" formControlName="date_debut"
+                    placeholder="date_debut" required
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+            </div>
+            <div class="flex flex-col">
+                <label for="date_fin">date_fin</label>
+                <input type="date" id="date_fin" formControlName="date_fin" placeholder="date_fin"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+            </div>
+
+            <div class="mb-4 flex space-x-4">
+                <div class="flex flex-col">
+                    <label for="raison">raison</label>
+                    <input type="text" id="raison" formControlName="raison" placeholder="raison"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="score">score</label>
+                    <input type="text" id="score" formControlName="score" placeholder="score"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                </div>
+            </div>
+
+            <div class="mb-4 flex space-x-4">
+                <div class="flex flex-col">
+                    <label for="attempt_number">attempt_number</label>
+                    <input type="text" id="attempt_number" formControlName="attempt_number" placeholder="attempt_number"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                </div>
+
+                <div class="mb-5">
+                    <div class="flex flex-col">
+                        <label for="score_final">score_final</label>
+                        <input type="text" id="score_final" formControlName="score_final" placeholder="score_final"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+                </div>
+            </div>
             <div class="mb-5 flex space-x-8">
                 <button type="submit"
-                    class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                    {{ operation === 'add' ? 'Ajouter' : 'Modifier' }}
-                </button>
+                    class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">{{
+                    operation === 'add' ? 'Ajouter' : 'Modifier' }}</button>
                 <button type="button" (click)="cancelAddOrEdit()"
-                    class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                    Annuler
-                </button>
+                    class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">Annuler</button>
             </div>
         </form>
     </div>
+
 
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
         <thead class="bg-gray-50">

@@ -1,8 +1,8 @@
 <div class="h-screen w-full flex antialiased text-gray-200 bg-gray-900 overflow-hidden popup-overlay">
     <div class="flex-1 flex flex-col popup-content">
 
-        <svg (click)="closeChat()" width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-            xmlns="http://www.w3.org/2000/svg" stroke="#fafafa">
+        <svg (click)="closeChat()" class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            stroke="#fafafa">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
@@ -15,7 +15,7 @@
             </g>
         </svg>
 
-        <main class="flex-grow flex flex-row min-h-0" *ngFor="let chat of chats$ | async;">
+        <main class="flex-grow flex flex-row min-h-0">
             <section
                 class="flex flex-col flex-none overflow-auto w-24 hover:w-64 group lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out">
                 <div class="header p-4 flex flex-row justify-between items-center flex-none">
@@ -23,7 +23,7 @@
                         <img class="rounded-full w-full h-full object-cover" alt="ravisankarchinnam"
                             src="../../../../assets/img/quiz-time-banner.webp" />
                     </div>
-                    <p class="text-md font-bold hidden md:block group-hover:block">Messenger</p>
+                    <p class="text-md font-bold hidden md:block group-hover:block">ChatQuiz</p>
                     <a href="#"
                         class="block rounded-full hover:bg-gray-700 bg-gray-800 w-10 h-10 p-2 hidden md:block group-hover:block">
                         <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
@@ -50,8 +50,9 @@
                     </form>
                 </div>
 
-                <div class="contacts p-2 flex-1 overflow-y-scroll">
-                    <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative">
+                <div class="contacts p-2 flex-1 overflow-y-scroll" *ngFor="let chat of chats$ | async;">
+                    <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative"
+                        (click)="changeChat(chat)">
                         <div class="w-16 h-16 relative flex flex-shrink-0">
                             <div
                                 class="shadow-md rounded-full w-full h-full object-cover flex items-center justify-center bg-blue-500 text-white">
@@ -96,10 +97,11 @@
                     </div>
                 </div>
                 <div class="chat-body p-4 flex-1 overflow-y-scroll">
-                    <div class="flex flex-row justify-start">
+                    <div class="flex flex-row justify-start" *ngFor="let chat of filteredChats$ | async">
                         <div class="w-8 h-8 relative flex flex-shrink-0">
-                            <div class="shadow-md rounded-full w-full h-full object-cover flex items-center justify-center bg-blue-500 text-white">
-                                {{ chat.conversation.student.firstName.charAt(0) | uppercase }}
+                            <div
+                                class="shadow-md rounded-full w-full h-full object-cover flex items-center justify-center bg-blue-500 text-white">
+                                {{chat.conversation.student.firstName.charAt(0) | uppercase }}
                             </div>
                         </div>
                         <div class="messages text-sm text-gray-700 grid grid-flow-row gap-2">
@@ -107,121 +109,10 @@
                                 <p
                                     class="px-6 py-3 rounded-b-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200">
                                     {{ chat.content }}</p>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-   M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-  C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path
-                                            d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
                     <p class="p-4 text-center text-sm text-gray-500">FRI 3:04 PM</p>
-                    <div class="flex flex-row justify-end">
-                        <div class="messages text-sm text-white grid grid-flow-row gap-2">
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-t-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">
-                                    Hey!
-                                    How are you?</p>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-       M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-      C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path
-                                            d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">Shall we go
-                                    for
-                                    Hiking this weekend?</p>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-       M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-      C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path
-                                            d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex items-center flex-row-reverse group">
-                                <p class="px-6 py-3 rounded-b-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md">
-                                    Lorem ipsum
-                                    dolor sit
-                                    amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                    labore et
-                                    dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida.</p>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path d="M10.001,7.8C8.786,7.8,7.8,8.785,7.8,10s0.986,2.2,2.201,2.2S12.2,11.215,12.2,10S11.216,7.8,10.001,7.8z
-       M3.001,7.8C1.786,7.8,0.8,8.785,0.8,10s0.986,2.2,2.201,2.2S5.2,11.214,5.2,10S4.216,7.8,3.001,7.8z M17.001,7.8
-      C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path
-                                            d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z" />
-                                    </svg>
-                                </button>
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
-                                    <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
-                                        <path
-                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="chat-footer flex-none">
                     <div class="flex flex-row items-center p-4">
@@ -258,20 +149,20 @@
                                 <input
                                     class="rounded-full py-2 pl-3 pr-10 w-full border border-gray-800 focus:border-gray-700 bg-gray-800 focus:bg-gray-900 focus:outline-none text-gray-200 focus:shadow-md transition duration-300 ease-in"
                                     type="text" value="" placeholder="Aa" />
-                                <button type="button" aria-label="Ouvrir le chat"
-                                    class="absolute top-0 right-0 mt-2 mr-3 flex flex-shrink-0 focus:outline-none block text-blue-600 hover:text-blue-700 w-6 h-6">
-                                    <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                        <path
-                                            d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM6.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm7 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2.16 3a6 6 0 0 1-11.32 0h11.32z" />
-                                    </svg>
-                                </button>
                             </label>
                         </div>
-                        <button type="button" aria-label="Ouvrir le chat"
+                        <button type="button" (click)="sendMessage()" aria-label="Ouvrir le chat"
                             class="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-6 h-6">
-                            <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
-                                <path
-                                    d="M11.0010436,0 C9.89589787,0 9.00000024,0.886706352 9.0000002,1.99810135 L9,8 L1.9973917,8 C0.894262725,8 0,8.88772964 0,10 L0,12 L2.29663334,18.1243554 C2.68509206,19.1602453 3.90195042,20 5.00853025,20 L12.9914698,20 C14.1007504,20 15,19.1125667 15,18.000385 L15,10 L12,3 L12,0 L11.0010436,0 L11.0010436,0 Z M17,10 L20,10 L20,20 L17,20 L17,10 L17,10 Z" />
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z"
+                                        stroke="#242eb2" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </g>
                             </svg>
                         </button>
                     </div>

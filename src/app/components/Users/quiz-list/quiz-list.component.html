@@ -5,9 +5,16 @@
             <div class="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3" *ngIf="quizzs.length > 0">
                 <div *ngFor="let quiz of quizzs"
                     class="group space-y-6 border border-gray-100 dark:border-gray-700 rounded-3xl bg-white dark:bg-gray-800 px-8 py-12 text-center shadow-2xl shadow-gray-600/10 dark:shadow-none">
-                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">{{ quiz.title }}</h3>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">{{ quiz.quiz.title }}</h3>
                     <p>
-                        {{ quiz.start_Date | date: 'yyyy-MM-dd : hh-mm-ss' }} || {{ quiz.end_Date | date: 'yyyy-MM-dd : hh-mm-ss' }}
+                        {{ quiz.quiz.start_Date| date: 'yyyy-MM-dd' }} || {{ quiz.quiz.end_Date | date: 'yyyy-MM-dd' }}
+                    </p>
+                    <p>
+                        {{ quiz.quiz.start_Date | date: 'hh-mm-ss' }} || {{ quiz.quiz.end_Date | date: 'hh-mm-ss' }}
+                    </p>
+                    <p
+                        [ngClass]="{ 'text-green-500': getStatus(quiz.quiz) === 'Programmé', 'text-orange-500': getStatus(quiz.quiz) === 'En cours', 'text-red-500': getStatus(quiz.quiz) === 'Fermé' }">
+                        Statut: {{ getStatus(quiz.quiz) }}
                     </p>
                     <a (click)="navigateToPlay(quiz.id)"
                         class="cursor-pointer relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 dark:before:border-gray-600 before:transition before:duration-300 group-hover:before:scale-125">

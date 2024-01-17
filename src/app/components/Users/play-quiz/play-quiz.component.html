@@ -12,38 +12,60 @@
                     <div *ngIf="i === currentQuestionIndex">
                         <div class="row m-0 mt-5 pt-5 font-bold" id="question-counter">{{ currentQuestionIndex + 1 }} of
                             {{ (questionsAndQuiz$ | async)?.length }}</div>
-                        <div class="row justify-center">
-                            <div class="text-gray-600 text-center mb-4">{{ question?.question?.text }}</div>
+                        <div class="row justify-center text-center">
+                            <div class="mb-4">
+                                {{ question?.question?.text }}
+                            </div>
+                            <div *ngFor="let media of question.question.medias; let i = index">
+                                <img [src]="media.link" class="d-block w-30 mx-auto mb-2" alt="question-image" />
+                            </div>
                         </div>
 
                         <div class="flex">
-                            <div class="w-1/2">
+                            <ng-container *ngIf="currentQuestionAnswers.length === 2">
+                                <div class="w-1/2 p-2">
+                                    <button type="button" [ngClass]="getAnswerStyleClass(currentQuestionAnswers[0])"
+                                        class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
+                                        (click)="selectAnswer(currentQuestionAnswers[0])">
+                                        <div class="text-2xl font-bold">{{ currentQuestionAnswers[0].answer.answerText
+                                            || 'N/A' }}</div>
+                                    </button>
+                                </div>
+                                <div class="w-1/2 p-2">
+                                    <button type="button" [ngClass]="getAnswerStyleClass(currentQuestionAnswers[1])"
+                                        class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
+                                        (click)="selectAnswer(currentQuestionAnswers[1])">
+                                        <div class="text-2xl font-bold">{{ currentQuestionAnswers[1].answer.answerText
+                                            || 'N/A' }}</div>
+                                    </button>
+                                </div>
+                            </ng-container>
+
+                            <div *ngIf="currentQuestionAnswers.length > 2" class="w-1/2">
                                 <div *ngFor="let answer of currentQuestionAnswers.slice(0, 2)" class="p-2">
-                                    <button type="button"
-                                            [ngClass]="getAnswerStyleClass(answer)"
-                                            class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
-                                            (click)="selectAnswer(answer)">
-                                        <div class="text-2xl font-bold">{{ answer.answer.answerText || 'N/A' }}</div>
+                                    <button type="button" [ngClass]="getAnswerStyleClass(answer)"
+                                        class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
+                                        (click)="selectAnswer(answer)">
+                                        <div class="text-2xl font-bold">{{ answer.answer.answerText || 'N/iA' }}</div>
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="w-1/2">
+                            <div *ngIf="currentQuestionAnswers.length > 2" class="w-1/2">
                                 <div *ngFor="let answer of currentQuestionAnswers.slice(2)" class="p-2">
                                     <button type="button" [ngClass]="getAnswerStyleClass(answer)"
-                                        class="text-white w-full h-20 flex items-center justify-center"
+                                        class="focus:border-4 focus:border focus:border-black text-white w-full h-20 flex items-center justify-center"
                                         (click)="selectAnswer(answer)">
                                         <div class="text-2xl font-bold">{{ answer.answer.answerText || 'N/A' }}</div>
                                     </button>
                                 </div>
                             </div>
                         </div>
+
                         <div class="absolute right-3 top-0 mt-5">
-                            <a class="carousel-control-next flex items-start" role="button" data-slide="next"
-                                (click)="nextQuestion()">
-                                <button type="button"
-                                    class="bg-blue-700 text-white py-3 px-4 rounded-lg hover:bg-blue-800">Next</button>
-                            </a>
+                            <button type="button" (click)="nextQuestion()"
+                                class="bg-blue-700 text-white py-3 px-4 rounded-lg hover:bg-blue-800">Next</button>
+
                         </div>
                     </div>
                 </div>

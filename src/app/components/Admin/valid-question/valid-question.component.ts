@@ -43,7 +43,7 @@ export class ValidQuestionComponent implements OnInit {
   createFormValidation() {
     this.validationForm = this.fb.group({
       question_id: ['', Validators.required],
-      response_id: ['', Validators.required],
+      answer_id: ['', Validators.required],
       points: ['', Validators.required]
     });
   }
@@ -54,7 +54,7 @@ export class ValidQuestionComponent implements OnInit {
       console.log(this.displayedQuestion)
       this.validationForm.patchValue({
         question_id: this.selectedQuestion.id,
-        response_id: '',
+        answer_id: '',
         points: ''
       });
     }

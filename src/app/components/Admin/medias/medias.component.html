@@ -48,7 +48,9 @@
                     <tr class="hover:bg-gray-50" *ngFor="let media of currentMedias">
                         <td class="px-6 py-4">{{ media.id }}</td>
                         <td class="px-6 py-4">{{ media.type}}</td>
-                        <td class="px-6 py-4">{{ media.link }}</td>
+                        <td class="px-6 py-4">
+                            <img [src]="media.link" alt="Media Image" class="w-16 h-16 object-cover" />
+                        </td>
                         <td class="px-6 py-4">{{ media.question.text }}</td>
                         <td class="px-6 py-4">{{ media.question.level.description }}</td>
                         <td class="px-6 py-4">

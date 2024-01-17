@@ -9,7 +9,6 @@ export class SidebarComponent {
 
   showChat = false;
 
-
   openChat(){
     this.showChat = true;
   }

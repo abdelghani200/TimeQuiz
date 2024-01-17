@@ -1,8 +1,15 @@
 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
 
     <div class="flex">
-        <button class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg m-4">Ajouter un nouveau</button>
+        <button class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg m-4" (click)="showAddForm = true">Ajouter un nouveau</button>
         <app-list-validations></app-list-validations>
+    </div>
+
+
+    <div [class.hidden]="!showAddForm" class="popup-form p-4">
+
+        <app-form-question [formGroup]="questionForm" [operation]="'add'" (submitForm)="addQuestion()"
+            (cancelEdit)="cancelAddOrEdit()"></app-form-question>
 
     </div>
 
@@ -27,7 +34,8 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                    <tr class="hover:bg-gray-50" *ngFor="let question of questions | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: questions.length };">
+                    <tr class="hover:bg-gray-50"
+                        *ngFor="let question of questions | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: questions.length };">
                         <td class="px-6 py-4">{{ question.id }}</td>
                         <td class="px-6 py-4">{{ question.text }}</td>
                         <td class="px-6 py-4">{{ question.answerNumber }}</td>
@@ -83,6 +91,6 @@
     </div>
 
     <app-pagination [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="questions.length"
-            (pageChange)="onPageChange($event)"></app-pagination>
+        (pageChange)="onPageChange($event)"></app-pagination>
 
 </div>

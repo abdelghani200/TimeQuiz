@@ -1,3 +1,3 @@
-<!-- <app-sidebar></app-sidebar> -->
+<app-home *ngIf="!isLogged"></app-home>
 
-<app-home></app-home>
+<app-sidebar *ngIf="isLogged"></app-sidebar>

@@ -2,6 +2,29 @@
     <button class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg m-4" (click)="showAddForm = true">Ajouter
         un nouveau</button>
 
+        <div [class.hidden]="!showAddForm" class="popup-form p-4">
+            <h2 class="text-lg font-semibold">{{ operation === 'add' ? 'Ajouter' : 'Modifier' }} un niveau</h2>
+            <form [formGroup]="aswerForm" (ngSubmit)="operation === 'add' ? addAnswer() : updateAnswer()" class="py-6 px-9">
+    
+                <app-form-commun *ngFor="let field of formFields" [formGroup]="aswerForm" [label]="field.label"
+                    [inputType]="field.inputType" [inputName]="field.inputName" [inputId]="field.inputId"
+                    [formControlName]="field.formControlName" [placeholder]="field.placeholder"
+                    [isRequired]="field.isRequired">
+                </app-form-commun>
+
+    
+                <div class="mb-5 flex space-x-8">
+                    <button type="submit"
+                        class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                        {{ operation === 'add' ? 'Ajouter' : 'Modifier' }}
+                    </button>
+                    <button type="button" (click)="cancelForm()"
+                        class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
     
 
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">

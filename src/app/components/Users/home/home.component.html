@@ -7,7 +7,7 @@
             <div class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 shadow-md z-20">
                 <div class=" flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
                     <div class="w-full flex justify-between lg:w-auto">
-                        <a href="#" aria-label="logo" class="flex space-x-2 items-center">
+                        <a [routerLink]="['']" aria-label="logo" class="flex space-x-2 items-center">
                             <img src="/assets/img/quiz-time-banner.webp" alt="image_quiz" class="w-12 h-12">
                             <span class="text-base font-bold text-gray-600 dark:text-white">YouQuiz</span>
                         </a>
@@ -26,7 +26,7 @@
                         <div class="text-gray-600 dark:text-gray-300 lg:pr-4">
                             <ul class="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0">
                                 <li>
-                                    <a [routerLink]="['/contenu']"
+                                    <a [routerLink]="['/']"
                                         class="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight">
                                         <span>Home</span>
                                     </a>
