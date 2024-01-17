@@ -14,7 +14,7 @@ export class QuizEffects {
         private quizService: QuizService,
     ) { }
 
-    loadSubjects$ = createEffect(() => {
+    loadQuizzes$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(QuizActions.loadQuizzs),
             exhaustMap(() => {
