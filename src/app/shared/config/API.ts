@@ -10,5 +10,8 @@ export const API_URLS = {
     Assignment_URL: 'http://localhost:9091/assign',
     Media_URL: 'http://localhost:9091/medias',
     Validation_URL: 'http://localhost:9091/validations',
-    Messages_URL: 'http://localhost:9091/api/messages'
+    Messages_URL: 'http://localhost:9091/api/messages',
+    Login_URL: 'http://localhost:9091/api/auth/login',
+    Response_URL: 'http://localhost:9091/api/responses',
+    SendMessage_URL: 'http://localhost:9091/api/chat/saveMessage',
 }

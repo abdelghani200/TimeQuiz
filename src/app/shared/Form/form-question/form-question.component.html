@@ -1,0 +1,73 @@
+<form [formGroup]="formGroup" (ngSubmit)="submitForm.emit()" class="py-6 px-9">
+
+    <div class="flex flex-col">
+        <label for="text" class="text-sm font-medium text-gray-500">Text</label>
+        <input type="text" id="text" formControlName="text" placeholder="Enter text" class="mt-1 p-2 border rounded-md">
+    </div>
+
+    <div class="flex flex-col">
+        <label for="answerNumber" class="text-sm font-medium text-gray-500">Answer Number</label>
+        <input type="number" id="answerNumber" formControlName="answerNumber" placeholder="Enter Answer Number" max="4"
+            min="2" class="mt-1 p-2 border rounded-md">
+    </div>
+
+
+    <div class="mb-4 flex space-x-4">
+        <div class="flex flex-col">
+            <label for="answerCorrectNumber" class="text-sm font-medium text-gray-500">Answer Correct Number</label>
+            <input type="text" id="answerCorrectNumber" formControlName="answerCorrectNumber"
+                placeholder="Enter start time" max="3" min="1" class="mt-1 p-2 border rounded-md">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="scorePoints">Score Points</label>
+            <input type="number" id="scorePoints" formControlName="scorePoints" placeholder="scorePoints"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+        </div>
+    </div>
+
+
+    <div class="flex flex-col">
+        <label for="type">Type</label>
+        <select formControlName="type" id="type"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            <option value="" disabled selected>Sélectionner un type</option>
+            <option value="single">Single</option>
+            <option value="multiple">Multiple</option>
+            <option value="direct">Direct</option>
+        </select>
+    </div>
+    
+    <div class="flex flex-col">
+        <label for="level_id">Levels</label>
+        <select formControlName="level_id" id="level_id" required
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            <option value="" disabled selected>Sélectionner un niveau</option>
+            <option *ngFor="let level of currentLevels" [value]="level.id">{{ level.description }}</option>
+        </select>
+    </div>
+
+    <div class="mb-5">
+        <div class="flex flex-col">
+            <label for="subject_id">Subjects</label>
+            <select formControlName="subject_id" id="subject_id" required
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                <option value="" disabled selected>Sélectionner un subject</option>
+                <option *ngFor="let subject of currentSubjects" [value]="subject.id">{{ subject.title }}</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="mb-5 flex space-x-8">
+        <button type="submit"
+            class="hover:shadow-form w-30 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+            {{ operation === 'add' ? 'Ajouter' : 'Modifier' }}
+        </button>
+        <button type="button" (click)="cancelEdit.emit()"
+            class="hover:shadow-form w-30 rounded-md bg-[#9D1818] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+            Annuler
+        </button>
+    </div>
+</form>
