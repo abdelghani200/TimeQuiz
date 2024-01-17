@@ -7,8 +7,9 @@ import * as fromAnswer from './answer.reducer';
 import * as fromTeacher from './Teacher.reducer';
 import * as fromAssignment from './assignment.reducer';
 import * as fromMedia from './media.reducer';
+import * as fromResponse from './reponse.reducer';
 
-export { fromLevel, fromSubject, fromQuiz, fromAnswer, fromTeacher, fromAssignment, fromMedia };
+export { fromLevel, fromSubject, fromQuiz, fromAnswer, fromTeacher, fromAssignment, fromMedia, fromResponse };
 
 export interface AppState {
     levels: fromLevel.LevelState;
@@ -18,7 +19,8 @@ export interface AppState {
     answers: fromAnswer.AnswerState,
     teachers: fromTeacher.TeacherState,
     assignments: fromAssignment.AssignmentState,
-    medias: fromMedia.MediaState
+    medias: fromMedia.MediaState,
+    reponses: fromResponse.ReponseState
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -29,5 +31,6 @@ export const reducers: ActionReducerMap<AppState> = {
     answers: fromAnswer.answerReducer,
     teachers: fromTeacher.teacherReducer,
     assignments: fromAssignment.assignmentReducer,
-    medias: fromMedia.mediaReducer
+    medias: fromMedia.mediaReducer,
+    reponses: fromResponse.responseReducer
 };
