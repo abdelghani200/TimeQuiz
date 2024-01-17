@@ -47,5 +47,22 @@ export class FormconfigService {
     ];
   }
 
+  getMessageFormConfig() {
+    return [
+      { label: 'Content', inputType: 'text', inputName: 'content', inputId: 'content', formControlName: 'content', placeholder: 'Enter message content', isRequired: true },
+      { label: 'Sender', inputType: 'text', inputName: 'sender', inputId: 'sender', formControlName: 'sender', placeholder: 'Enter sender name', isRequired: true },
+      { label: 'Type', inputType: 'text', inputName: 'sender', inputId: 'sender', formControlName: 'sender', placeholder: 'Enter sender name', isRequired: true },
+      { label: 'Room', inputType: 'text', inputName: 'room_id', inputId: 'room_id', formControlName: 'room_id', placeholder: 'Enter sender name', isRequired: true },
+      { label: 'Conversation', inputType: 'text', inputName: 'conversation_id', inputId: 'conversation_id', formControlName: 'conversation_id', placeholder: 'Enter sender name', isRequired: true },
+    ];
+  }
+
+  getAnswerFormConfig() {
+    return [
+      { label: 'Text answer', inputType: 'text', inputName: 'answerText', inputId: 'answerText', formControlName: 'answerText', placeholder: 'Enter answer Text', isRequired: true },
+      
+    ];
+  }
+
 
 }
